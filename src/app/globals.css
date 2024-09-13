@@ -8,8 +8,8 @@
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  background: rgb(50, 1, 71);
+  background: linear-gradient(180deg, rgb(40, 1, 57) 0%, rgb(63, 2, 50) 50%, rgba(0, 0, 0, 1) 100%);
   font-family: oswald;
 }
 
