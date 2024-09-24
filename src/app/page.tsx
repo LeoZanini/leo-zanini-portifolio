@@ -1,16 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
-import { Header } from './components/header';
-import IconTypescript from './components/icons/typescript-icon';
-import IconNextjs from './components/icons/next-js-icon';
-import IconBxlReact from './components/icons/react-icon';
-import IconBxlTailwindCss from './components/icons/tailwind-icon';
-import IconBxlCss3 from './components/icons/css-icon';
+import { Header } from '../components/header';
+import IconTypescript from '../components/icons/typescript-icon';
+import IconNextjs from '../components/icons/next-js-icon';
+import IconBxlReact from '../components/icons/react-icon';
+import IconBxlTailwindCss from '../components/icons/tailwind-icon';
+import IconBxlCss3 from '../components/icons/css-icon';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useMediaQuery } from 'react-responsive';
-
 const TechItems = [
   {
     name: 'Next.js',
@@ -138,7 +136,7 @@ const IntroCard = () => {
               initial={{ x: -10, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 1, delay: 1 }}>
-              Hi, I'm Leo!
+              {"Hi, I'm Leo!"}
             </motion.h1>
             <motion.p
               initial={{ x: -10, opacity: 0 }}
@@ -161,15 +159,16 @@ const IntroCard = () => {
               initial={{ x: -10, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 1, delay: 1 }}>
-              Hi, I'm Leo!
+              {"Hi, I'm Leo!"}
             </motion.h1>
             <motion.p
               initial={{ x: -10, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 2, delay: 1.2 }}
               className="text-center md:text-left">
-              I'm a software engineer and I love to code. I'm passionate about technology and I'm
-              always looking for new challenges.
+              {
+                "I'm a software engineer and I love to code. I'm passionate about technology and I'm always looking for new challenges."
+              }
             </motion.p>
           </motion.div>
         )}

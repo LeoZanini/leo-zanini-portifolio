@@ -1,0 +1,85 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model FoodRestriction {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  Patients    Patient? @relation(fields: [patientsId], references: [id])
+  patientsId  String?
+
+  @@map("food_restriction")
+}
+
+model Nutritionist {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  name         String?
+  phone        String?
+  patients     Patient[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  appointments Appointment[]
+  Integrations Integration[]
+
+  @@map("nutritionist")
+}
+
+model Integration {
+  id             String       @id @default(cuid())
+  name           String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  nutritionistId String
+  nutritionist   Nutritionist @relation(fields: [nutritionistId], references: [id], onDelete: Cascade)
+
+  @@map("integration")
+}
+
+model Patient {
+  id               String            @id @default(cuid())
+  email            String?           @unique
+  name             String?
+  age              Int?
+  phone            String?
+  weight           Float?
+  height           Float?
+  observations     String?
+  foodRestrictions FoodRestriction[]
+  nutritionistId   String?
+  nutritionist     Nutritionist?     @relation(fields: [nutritionistId], references: [id], onDelete: SetNull)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  transcript       String?
+  appointments     Appointment[]
+
+  @@map("patient")
+}
+
+model Appointment {
+  id             String       @id @default(cuid())
+  date           DateTime
+  patientId      String
+  patient        Patient      @relation(fields: [patientId], references: [id])
+  nutritionistId String
+  nutritionist   Nutritionist @relation(fields: [nutritionistId], references: [id], onDelete: Cascade)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@map("appointment")
+}
